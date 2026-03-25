@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Menu - {{ restaurant_info.name }}{% endblock %}
 
@@ -27,7 +28,7 @@
                 {% for item in category.items.all %}
                 <div class="menu-item-card {% if not item.is_available %}unavailable{% endif %}">
                     {% if item.image %}
-                    <div class="item-image" style="background-image: url('{{ item.image.url }}');"></div>
+                    <div class="item-image" style="background-image: url('{% static item.image.name %}');"></div>
                     {% else %}
                     <div class="item-image item-image-placeholder">
                         <i class="fas fa-utensils"></i>

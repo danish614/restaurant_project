@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -48,7 +49,7 @@
             {% for item in featured_items %}
             <div class="menu-card" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:'00' }}">
                 {% if item.image %}
-                <div class="menu-card-image" style="background-image: url('{{ item.image.url }}');"></div>
+                <div class="menu-card-image" style="background-image: url('{% static item.image.name %}');"></div>
                 {% else %}
                 <div class="menu-card-image menu-card-image-placeholder">
                     <i class="fas fa-utensils"></i>
