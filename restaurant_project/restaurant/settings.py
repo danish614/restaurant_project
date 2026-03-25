@@ -105,7 +105,10 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Media files (User uploads)
-MEDIA_URL = '/media/'
+if os.environ.get('RAILWAY_ENVIRONMENT') or not DEBUG:
+    MEDIA_URL = '/static/'
+else:
+    MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # WhiteNoise configuration for static files
