@@ -2,7 +2,7 @@
 
 A complete, modern, and responsive restaurant website built with Django, featuring online ordering, table booking, reviews, and admin management.
 
-## 🌟 Features
+##  Features
 
 ### Frontend
 - **Modern, Responsive Design**: Mobile-first approach with beautiful UI/UX
@@ -39,13 +39,13 @@ A complete, modern, and responsive restaurant website built with Django, featuri
 - HTTPS enforcement (production)
 - Secure headers and cookies
 
-## 📋 Requirements
+##  Requirements
 
 - Python 3.11+
 - PostgreSQL (recommended for production) or SQLite (development)
 - Virtual environment (recommended)
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### 1. Clone the Project
 
@@ -118,7 +118,7 @@ Visit: http://127.0.0.1:8000/admin/
 
 Login with your superuser credentials.
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Backend**: Django 4.2
 - **Database**: PostgreSQL / SQLite
@@ -127,7 +127,7 @@ Login with your superuser credentials.
 - **Icons**: Font Awesome 6
 - **Deployment**: Gunicorn, WhiteNoise, Nginx
 
-## 🌐 Deployment
+##  Deployment
 
 Deployment guides available for:
 - **Render** (Recommended for beginners)
@@ -139,7 +139,7 @@ Deployment guides available for:
 
 See [DEPLOYMENT.md](restaurant_project/DEPLOYMENT.md) for detailed instructions.
 
-## 📝 License
+##  License
 
 This project is open source and available for personal and commercial use.
 
