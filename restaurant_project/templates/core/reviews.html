@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+{% block title %}Reviews - {{ restaurant_info.name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>Customer Reviews</h1>
+        <p>See what our customers are saying</p>
+    </div>
+</section>
+
+<!-- Reviews Section -->
+<section class="section reviews-list-section">
+    <div class="container">
+        <div class="reviews-layout">
+            <!-- Reviews List -->
+            <div class="reviews-column">
+                <h2>All Reviews</h2>
+                
+                {% if reviews %}
+                <div class="reviews-list">
+                    {% for review in reviews %}
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="reviewer-avatar-large">{{ review.customer_name|first }}</div>
+                            <div class="reviewer-details">
+                                <h3>{{ review.customer_name }}</h3>
+                                <div class="stars">
+                                    {% for i in "12345" %}
+                                        {% if forloop.counter <= review.rating %}
+                                        <i class="fas fa-star"></i>
+                                        {% else %}
+                                        <i class="far fa-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <span class="review-date">{{ review.created_at|date:"F d, Y" }}</span>
+                            </div>
+                        </div>
+                        <p class="review-text">{{ review.review_text }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-comments"></i>
+                    <p>No reviews yet. Be the first to share your experience!</p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Review Form -->
+            <div class="review-form-column">
+                <div class="review-form-sticky">
+                    <h2>Write a Review</h2>
+                    <p class="form-description">Share your experience with us</p>
+                    
+                    <form method="post" class="review-form">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label class="form-label">Your Name *</label>
+                            {{ form.customer_name }}
+                            {% if form.customer_name.errors %}
+                            <span class="error-message">{{ form.customer_name.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address *</label>
+                            {{ form.customer_email }}
+                            {% if form.customer_email.errors %}
+                            <span class="error-message">{{ form.customer_email.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Rating *</label>
+                            {{ form.rating }}
+                            {% if form.rating.errors %}
+                            <span class="error-message">{{ form.rating.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Your Review *</label>
+                            {{ form.review_text }}
+                            {% if form.review_text.errors %}
+                            <span class="error-message">{{ form.review_text.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">Submit Review</button>
+                        
+                        <p class="form-note">Your review will be published after approval by our team.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.reviews-list-section {
+    min-height: 70vh;
+}
+
+.reviews-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.reviews-column h2,
+.review-form-column h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.review-item {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+}
+
+.review-item:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.review-header {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.reviewer-avatar-large {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.reviewer-details h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.stars {
+    color: var(--color-warning);
+    font-size: 1.125rem;
+    margin-bottom: 0.25rem;
+}
+
+.review-date {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+}
+
+.review-text {
+    color: var(--color-text);
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.review-form-sticky {
+    position: sticky;
+    top: 100px;
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.form-description {
+    color: var(--color-text-light);
+    margin-bottom: 1.5rem;
+}
+
+.form-note {
+    margin-top: 1rem;
+    color: var(--color-text-light);
+    font-size: 0.875rem;
+    text-align: center;
+    font-style: italic;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: var(--radius-lg);
+    color: var(--color-text-light);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: var(--color-border);
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 968px) {
+    .reviews-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .review-form-sticky {
+        position: static;
+    }
+}
+</style>
+{% endblock %}

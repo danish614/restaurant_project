@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">{{ restaurant_info.name }}</h1>
+        <p class="hero-subtitle">{{ restaurant_info.tagline }}</p>
+        <div class="hero-buttons">
+            <a href="{% url 'menu' %}" class="btn btn-primary">View Menu</a>
+            <a href="{% url 'order' %}" class="btn btn-secondary">Order Now</a>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
+
+<!-- Featured Categories -->
+<section class="section featured-categories">
+    <div class="container">
+        <h2 class="section-title">Our Specialties</h2>
+        <p class="section-subtitle">Explore our delicious menu categories</p>
+        
+        <div class="categories-grid">
+            {% for category in categories %}
+            <div class="category-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'00' }}">
+                <div class="category-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h3>{{ category.name }}</h3>
+                <p>{{ category.description|truncatewords:15 }}</p>
+                <a href="{% url 'menu' %}" class="category-link">Explore <i class="fas fa-arrow-right"></i></a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Featured Items -->
+<section class="section featured-items">
+    <div class="container">
+        <h2 class="section-title">Chef's Recommendations</h2>
+        <p class="section-subtitle">Handpicked favorites from our kitchen</p>
+        
+        <div class="items-grid">
+            {% for item in featured_items %}
+            <div class="menu-card" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:'00' }}">
+                {% if item.image %}
+                <div class="menu-card-image" style="background-image: url('{{ item.image.url }}');"></div>
+                {% else %}
+                <div class="menu-card-image menu-card-image-placeholder">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                {% endif %}
+                <div class="menu-card-content">
+                    <div class="menu-card-header">
+                        <h3>{{ item.name }}</h3>
+                        <span class="price">${{ item.price }}</span>
+                    </div>
+                    <p class="menu-card-description">{{ item.description|truncatewords:20 }}</p>
+                    <div class="menu-card-tags">
+                        {% if item.is_vegetarian %}<span class="tag vegetarian">Vegetarian</span>{% endif %}
+                        {% if item.is_vegan %}<span class="tag vegan">Vegan</span>{% endif %}
+                        {% if item.is_gluten_free %}<span class="tag gluten-free">Gluten Free</span>{% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center">
+            <a href="{% url 'menu' %}" class="btn btn-primary">View Full Menu</a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="section about-section">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-content" data-aos="fade-right">
+                <h2 class="section-title">About Us</h2>
+                <p>{{ restaurant_info.description }}</p>
+                <div class="about-features">
+                    <div class="feature">
+                        <i class="fas fa-award"></i>
+                        <div>
+                            <h4>Quality Ingredients</h4>
+                            <p>Fresh, locally sourced ingredients</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Quick Service</h4>
+                            <p>Fast and efficient delivery</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <h4>Made with Love</h4>
+                            <p>Every dish crafted with care</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image" data-aos="fade-left">
+                <div class="image-placeholder">
+                    <i class="fas fa-restaurant"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Reviews Section -->
+{% if reviews %}
+<section class="section reviews-section">
+    <div class="container">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <p class="section-subtitle">Real reviews from real people</p>
+        
+        <div class="reviews-grid">
+            {% for review in reviews %}
+            <div class="review-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'00' }}">
+                <div class="stars">
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= review.rating %}
+                        <i class="fas fa-star"></i>
+                        {% else %}
+                        <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <p class="review-text">"{{ review.review_text }}"</p>
+                <div class="reviewer-info">
+                    <div class="reviewer-avatar">{{ review.customer_name|first }}</div>
+                    <div>
+                        <strong>{{ review.customer_name }}</strong>
+                        <small>{{ review.created_at|date:"M d, Y" }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center">
+            <a href="{% url 'reviews' %}" class="btn btn-secondary">Read More Reviews</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Order?</h2>
+            <p>Delicious food delivered to your doorstep</p>
+            <div class="cta-buttons">
+                <a href="{% url 'order' %}" class="btn btn-primary btn-lg">Order Online</a>
+                <a href="{% url 'table_booking' %}" class="btn btn-secondary btn-lg">Book a Table</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

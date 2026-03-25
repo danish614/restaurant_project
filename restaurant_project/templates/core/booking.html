@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+{% block title %}Book a Table - {{ restaurant_info.name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>Reserve a Table</h1>
+        <p>Book your dining experience with us</p>
+    </div>
+</section>
+
+<!-- Booking Section -->
+<section class="section booking-section">
+    <div class="container">
+        <div class="booking-grid">
+            <!-- Booking Form -->
+            <div class="booking-form-container">
+                <h2>Make a Reservation</h2>
+                <p class="form-description">Please fill in the details below to reserve your table. We'll confirm your booking shortly.</p>
+                
+                <form method="post" class="booking-form">
+                    {% csrf_token %}
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Full Name *</label>
+                            {{ form.customer_name }}
+                            {% if form.customer_name.errors %}
+                            <span class="error-message">{{ form.customer_name.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address *</label>
+                            {{ form.customer_email }}
+                            {% if form.customer_email.errors %}
+                            <span class="error-message">{{ form.customer_email.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Phone Number *</label>
+                            {{ form.customer_phone }}
+                            {% if form.customer_phone.errors %}
+                            <span class="error-message">{{ form.customer_phone.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Number of Guests *</label>
+                            {{ form.number_of_guests }}
+                            {% if form.number_of_guests.errors %}
+                            <span class="error-message">{{ form.number_of_guests.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Date *</label>
+                            {{ form.booking_date }}
+                            {% if form.booking_date.errors %}
+                            <span class="error-message">{{ form.booking_date.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Time *</label>
+                            {{ form.booking_time }}
+                            {% if form.booking_time.errors %}
+                            <span class="error-message">{{ form.booking_time.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Special Requests (Optional)</label>
+                        {{ form.special_requests }}
+                        {% if form.special_requests.errors %}
+                        <span class="error-message">{{ form.special_requests.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    {% if form.non_field_errors %}
+                    <div class="error-message">{{ form.non_field_errors.0 }}</div>
+                    {% endif %}
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Reserve Table</button>
+                </form>
+            </div>
+            
+            <!-- Restaurant Info -->
+            <div class="booking-info">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Opening Hours</h3>
+                    <pre class="opening-hours">{{ restaurant_info.opening_hours }}</pre>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Location</h3>
+                    <p>{{ restaurant_info.address }}</p>
+                    {% if restaurant_info.google_maps_link %}
+                    <a href="{{ restaurant_info.google_maps_link }}" target="_blank" class="btn btn-secondary btn-sm">View on Map</a>
+                    {% endif %}
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Contact Us</h3>
+                    <p><strong>Phone:</strong> {{ restaurant_info.phone }}</p>
+                    <p><strong>Email:</strong> {{ restaurant_info.email }}</p>
+                </div>
+                
+                <div class="info-card highlight">
+                    <h3>Important Notes</h3>
+                    <ul>
+                        <li>Reservations must be made at least 2 hours in advance</li>
+                        <li>We'll confirm your booking via email/phone</li>
+                        <li>Please arrive 10 minutes before your reservation</li>
+                        <li>Tables are held for 15 minutes after reservation time</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.booking-section {
+    min-height: 70vh;
+}
+
+.booking-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.booking-form-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.booking-form-container h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-description {
+    color: var(--color-text-light);
+    margin-bottom: 2rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.info-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.5rem;
+}
+
+.info-card.highlight {
+    background: var(--color-primary-light);
+    border: 2px solid var(--color-primary);
+}
+
+.info-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.info-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.info-card p {
+    color: var(--color-text-light);
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.info-card ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.info-card ul li {
+    padding-left: 1.5rem;
+    position: relative;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.info-card ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.error-message {
+    color: var(--color-error);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+@media (max-width: 968px) {
+    .booking-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - {{ restaurant_info.name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p>Get in touch with us</p>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="section contact-section">
+    <div class="container">
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form-container">
+                <h2>Send Us a Message</h2>
+                <p class="form-description">Have a question or feedback? We'd love to hear from you!</p>
+                
+                <form method="post" class="contact-form">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label class="form-label">Your Name *</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                        <span class="error-message">{{ form.name.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Email Address *</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                            <span class="error-message">{{ form.email.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            {{ form.phone }}
+                            {% if form.phone.errors %}
+                            <span class="error-message">{{ form.phone.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Subject *</label>
+                        {{ form.subject }}
+                        {% if form.subject.errors %}
+                        <span class="error-message">{{ form.subject.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Message *</label>
+                        {{ form.message }}
+                        {% if form.message.errors %}
+                        <span class="error-message">{{ form.message.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                </form>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="contact-info-container">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Visit Us</h3>
+                    <p>{{ restaurant_info.address }}</p>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3>WhatsApp</h3>
+                    <p><a href="https://wa.me/{{ restaurant_info.whatsapp_number }}" target="_blank">Chat with us</a></p>
+                </div>
+                
+                <div class="contact-card highlight">
+                    <h3>Business Hours</h3>
+                    <pre class="opening-hours">{{ restaurant_info.opening_hours }}</pre>
+                </div>
+                
+                <div class="social-media-card">
+                    <h3>Follow Us</h3>
+                    <div class="social-links-large">
+                        {% if restaurant_info.facebook_url %}
+                        <a href="{{ restaurant_info.facebook_url }}" target="_blank" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        {% endif %}
+                        {% if restaurant_info.instagram_url %}
+                        <a href="{{ restaurant_info.instagram_url }}" target="_blank" class="social-btn instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        {% endif %}
+                        {% if restaurant_info.twitter_url %}
+                        <a href="{{ restaurant_info.twitter_url }}" target="_blank" class="social-btn twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Map Section -->
+        {% if restaurant_info.google_maps_link %}
+        <div class="map-section">
+            <h2>Find Us on the Map</h2>
+            <div class="map-container">
+                <iframe 
+                    src="{{ restaurant_info.google_maps_link }}"
+                    width="100%" 
+                    height="450" 
+                    style="border:0; border-radius: var(--radius-lg);" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+.contact-section {
+    min-height: 70vh;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+.contact-form-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.contact-form-container h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-description {
+    color: var(--color-text-light);
+    margin-bottom: 2rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.contact-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+}
+
+.contact-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.contact-card.highlight {
+    background: var(--color-primary-light);
+    border: 2px solid var(--color-primary);
+}
+
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.contact-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.75rem;
+}
+
+.contact-card p {
+    color: var(--color-text-light);
+    line-height: 1.6;
+}
+
+.contact-card a {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.contact-card a:hover {
+    text-decoration: underline;
+}
+
+.social-media-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.social-media-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+}
+
+.social-links-large {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: white;
+    transition: all var(--transition-base);
+}
+
+.social-btn:hover {
+    transform: translateY(-3px) scale(1.1);
+}
+
+.social-btn.facebook {
+    background: linear-gradient(135deg, #3b5998, #8b9dc3);
+}
+
+.social-btn.instagram {
+    background: linear-gradient(135deg, #e1306c, #fd1d1d, #fcaf45);
+}
+
+.social-btn.twitter {
+    background: linear-gradient(135deg, #1da1f2, #0d95e8);
+}
+
+.map-section {
+    margin-top: 4rem;
+}
+
+.map-section h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.map-container {
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+@media (max-width: 968px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ restaurant_info.name }}{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="{% url 'home' %}" class="logo">
+                    <span class="logo-text">{{ restaurant_info.name }}</span>
+                    <span class="logo-tagline">{{ restaurant_info.tagline }}</span>
+                </a>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <div class="nav-menu" id="navMenu">
+                    <a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+                    <a href="{% url 'menu' %}" class="nav-link {% if request.resolver_match.url_name == 'menu' %}active{% endif %}">Menu</a>
+                    <a href="{% url 'order' %}" class="nav-link {% if request.resolver_match.url_name == 'order' %}active{% endif %}">Order Online</a>
+                    <a href="{% url 'table_booking' %}" class="nav-link {% if request.resolver_match.url_name == 'table_booking' %}active{% endif %}">Book Table</a>
+                    <a href="{% url 'reviews' %}" class="nav-link {% if request.resolver_match.url_name == 'reviews' %}active{% endif %}">Reviews</a>
+                    <a href="{% url 'contact' %}" class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Floating Action Buttons -->
+    <div class="floating-buttons">
+        <a href="https://wa.me/{{ restaurant_info.whatsapp_number }}" target="_blank" class="fab-button whatsapp" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="tel:{{ restaurant_info.phone }}" class="fab-button phone" title="Call Us">
+            <i class="fas fa-phone"></i>
+        </a>
+    </div>
+
+    <!-- Messages -->
+    {% if messages %}
+    <div class="messages-container">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            {{ message }}
+            <button type="button" class="close-alert">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>{{ restaurant_info.name }}</h3>
+                    <p>{{ restaurant_info.tagline }}</p>
+                    <div class="social-links">
+                        {% if restaurant_info.facebook_url %}
+                        <a href="{{ restaurant_info.facebook_url }}" target="_blank"><i class="fab fa-facebook"></i></a>
+                        {% endif %}
+                        {% if restaurant_info.instagram_url %}
+                        <a href="{{ restaurant_info.instagram_url }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                        {% endif %}
+                        {% if restaurant_info.twitter_url %}
+                        <a href="{{ restaurant_info.twitter_url }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'menu' %}">Menu</a></li>
+                        <li><a href="{% url 'order' %}">Order Online</a></li>
+                        <li><a href="{% url 'table_booking' %}">Book a Table</a></li>
+                        <li><a href="{% url 'reviews' %}">Reviews</a></li>
+                        <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Opening Hours</h4>
+                    <pre class="opening-hours">{{ restaurant_info.opening_hours }}</pre>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> {{ restaurant_info.address }}</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 {{ restaurant_info.name }}. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

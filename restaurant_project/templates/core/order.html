@@ -1,0 +1,538 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Online - {{ restaurant_info.name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>Order Online</h1>
+        <p>Fast delivery to your doorstep</p>
+    </div>
+</section>
+
+<!-- Order Section -->
+<section class="section order-section">
+    <div class="container">
+        <div class="order-grid">
+            <!-- Menu Items -->
+            <div class="menu-column">
+                <h2>Choose Your Items</h2>
+                
+                {% for category in categories %}
+                <div class="order-category">
+                    <h3>{{ category.name }}</h3>
+                    <div class="order-items">
+                        {% for item in category.items.all %}
+                        {% if item.is_available %}
+                        <div class="order-item" data-item-id="{{ item.id }}" data-item-name="{{ item.name }}" data-item-price="{{ item.price }}">
+                            <div class="order-item-info">
+                                <h4>{{ item.name }}</h4>
+                                <p>{{ item.description|truncatewords:15 }}</p>
+                                <span class="item-price">${{ item.price }}</span>
+                            </div>
+                            <button type="button" class="btn-add-to-cart" onclick="addToCart({{ item.id }}, '{{ item.name }}', {{ item.price }})">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Cart -->
+            <div class="cart-column">
+                <div class="cart-sticky">
+                    <h2>Your Order</h2>
+                    
+                    <div id="cart-items" class="cart-items">
+                        <div class="empty-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            <p>Your cart is empty</p>
+                        </div>
+                    </div>
+                    
+                    <div id="cart-summary" class="cart-summary" style="display: none;">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="cart-subtotal">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Delivery Fee:</span>
+                            <span id="delivery-fee">$5.00</span>
+                        </div>
+                        <div class="summary-row total">
+                            <strong>Total:</strong>
+                            <strong id="cart-total">$0.00</strong>
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="checkout-btn" class="btn btn-primary btn-block" onclick="showCheckoutForm()" style="display: none;">
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Checkout Modal -->
+<div id="checkout-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeCheckoutForm()">&times;</span>
+        <h2>Complete Your Order</h2>
+        
+        <form id="checkout-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="form-label">Full Name *</label>
+                <input type="text" name="customer_name" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Email Address *</label>
+                <input type="email" name="customer_email" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Phone Number *</label>
+                <input type="tel" name="customer_phone" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Delivery Address *</label>
+                <textarea name="customer_address" class="form-control" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Special Instructions (Optional)</label>
+                <textarea name="notes" class="form-control" rows="2"></textarea>
+            </div>
+            
+            <div class="form-summary">
+                <strong>Total Amount: <span id="final-total">$0.00</span></strong>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">Place Order</button>
+        </form>
+    </div>
+</div>
+
+<style>
+.order-section {
+    min-height: 60vh;
+}
+
+.order-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 2rem;
+    align-items: start;
+}
+
+.menu-column h2,
+.cart-column h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.order-category {
+    margin-bottom: 2rem;
+}
+
+.order-category h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-primary-light);
+}
+
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.order-item {
+    background: white;
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: all var(--transition-base);
+}
+
+.order-item:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.order-item-info {
+    flex: 1;
+}
+
+.order-item-info h4 {
+    font-size: 1.125rem;
+    margin-bottom: 0.25rem;
+}
+
+.order-item-info p {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn-add-to-cart {
+    background: var(--color-primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: all var(--transition-base);
+    white-space: nowrap;
+}
+
+.btn-add-to-cart:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+}
+
+.cart-sticky {
+    position: sticky;
+    top: 100px;
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.cart-items {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--color-text-light);
+}
+
+.empty-cart i {
+    font-size: 3rem;
+    color: var(--color-border);
+    margin-bottom: 1rem;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item-info h4 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.quantity-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    transition: all var(--transition-base);
+}
+
+.quantity-btn:hover {
+    background: var(--color-primary);
+    color: white;
+}
+
+.cart-item-price {
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.btn-remove {
+    color: var(--color-error);
+    font-size: 1.25rem;
+    padding: 0.25rem;
+}
+
+.cart-summary {
+    border-top: 2px solid var(--color-border);
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.summary-row.total {
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.btn-block {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1002;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideDown 0.3s;
+}
+
+.modal-close {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--color-text-light);
+    cursor: pointer;
+}
+
+.modal-close:hover {
+    color: var(--color-text);
+}
+
+.modal-content h2 {
+    margin-bottom: 1.5rem;
+}
+
+.form-summary {
+    background: var(--color-primary-light);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+    color: var(--color-primary-dark);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 968px) {
+    .order-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cart-sticky {
+        position: static;
+    }
+}
+</style>
+
+<script>
+// Cart management
+let cart = [];
+const deliveryFee = 5.00;
+
+function addToCart(id, name, price) {
+    const existingItem = cart.find(item => item.id === id);
+    
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push({ id, name, price, quantity: 1 });
+    }
+    
+    updateCartUI();
+}
+
+function removeFromCart(id) {
+    cart = cart.filter(item => item.id !== id);
+    updateCartUI();
+}
+
+function updateQuantity(id, change) {
+    const item = cart.find(item => item.id === id);
+    if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+            removeFromCart(id);
+        } else {
+            updateCartUI();
+        }
+    }
+}
+
+function updateCartUI() {
+    const cartItemsDiv = document.getElementById('cart-items');
+    const cartSummary = document.getElementById('cart-summary');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    
+    if (cart.length === 0) {
+        cartItemsDiv.innerHTML = '<div class="empty-cart"><i class="fas fa-shopping-cart"></i><p>Your cart is empty</p></div>';
+        cartSummary.style.display = 'none';
+        checkoutBtn.style.display = 'none';
+        return;
+    }
+    
+    let html = '';
+    let subtotal = 0;
+    
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        
+        html += `
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <h4>${item.name}</h4>
+                    <div class="cart-item-quantity">
+                        <button type="button" class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button type="button" class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                    </div>
+                    <div class="cart-item-price">$${itemTotal.toFixed(2)}</div>
+                </div>
+                <button type="button" class="btn-remove" onclick="removeFromCart(${item.id})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `;
+    });
+    
+    cartItemsDiv.innerHTML = html;
+    
+    const total = subtotal + deliveryFee;
+    
+    document.getElementById('cart-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById('cart-total').textContent = `$${total.toFixed(2)}`;
+    document.getElementById('final-total').textContent = `$${total.toFixed(2)}`;
+    
+    cartSummary.style.display = 'block';
+    checkoutBtn.style.display = 'block';
+}
+
+function showCheckoutForm() {
+    if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+    }
+    document.getElementById('checkout-modal').style.display = 'block';
+}
+
+function closeCheckoutForm() {
+    document.getElementById('checkout-modal').style.display = 'none';
+}
+
+// Form submission
+document.getElementById('checkout-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const total = subtotal + deliveryFee;
+    
+    const orderData = {
+        customer_name: formData.get('customer_name'),
+        customer_email: formData.get('customer_email'),
+        customer_phone: formData.get('customer_phone'),
+        customer_address: formData.get('customer_address'),
+        notes: formData.get('notes'),
+        total_amount: total.toFixed(2),
+        items: cart
+    };
+    
+    try {
+        const response = await fetch('{% url "create_order" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+            },
+            body: JSON.stringify(orderData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            alert(result.message);
+            cart = [];
+            updateCartUI();
+            closeCheckoutForm();
+            e.target.reset();
+        } else {
+            alert(result.message || 'Error placing order. Please try again.');
+        }
+    } catch (error) {
+        alert('Error placing order. Please try again.');
+        console.error('Error:', error);
+    }
+});
+
+// Close modal on outside click
+window.onclick = function(event) {
+    const modal = document.getElementById('checkout-modal');
+    if (event.target === modal) {
+        closeCheckoutForm();
+    }
+};
+</script>
+{% endblock %}

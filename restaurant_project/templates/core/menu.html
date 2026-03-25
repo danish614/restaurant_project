@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+{% block title %}Menu - {{ restaurant_info.name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>Our Menu</h1>
+        <p>Explore our delicious offerings</p>
+    </div>
+</section>
+
+<!-- Menu Section -->
+<section class="section menu-section">
+    <div class="container">
+        {% for category in categories %}
+        <div class="menu-category" id="category-{{ category.id }}">
+            <div class="category-header">
+                <h2>{{ category.name }}</h2>
+                {% if category.description %}
+                <p>{{ category.description }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="menu-items-grid">
+                {% for item in category.items.all %}
+                <div class="menu-item-card {% if not item.is_available %}unavailable{% endif %}">
+                    {% if item.image %}
+                    <div class="item-image" style="background-image: url('{{ item.image.url }}');"></div>
+                    {% else %}
+                    <div class="item-image item-image-placeholder">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="item-details">
+                        <div class="item-header">
+                            <h3>{{ item.name }}</h3>
+                            <span class="item-price">${{ item.price }}</span>
+                        </div>
+                        
+                        <p class="item-description">{{ item.description }}</p>
+                        
+                        <div class="item-meta">
+                            <div class="item-tags">
+                                {% if item.is_vegetarian %}<span class="tag vegetarian"><i class="fas fa-leaf"></i> Vegetarian</span>{% endif %}
+                                {% if item.is_vegan %}<span class="tag vegan"><i class="fas fa-seedling"></i> Vegan</span>{% endif %}
+                                {% if item.is_gluten_free %}<span class="tag gluten-free"><i class="fas fa-wheat"></i> Gluten Free</span>{% endif %}
+                                {% if item.spice_level > 0 %}
+                                <span class="tag spicy">
+                                    {% for i in "123" %}
+                                        {% if forloop.counter <= item.spice_level %}🌶️{% endif %}
+                                    {% endfor %}
+                                </span>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="item-info">
+                                <span><i class="fas fa-clock"></i> {{ item.preparation_time }} min</span>
+                            </div>
+                        </div>
+                        
+                        {% if not item.is_available %}
+                        <div class="unavailable-badge">Currently Unavailable</div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <i class="fas fa-utensils"></i>
+            <p>Menu items will be available soon!</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to Order?</h2>
+            <p>Get your favorite dishes delivered to your door</p>
+            <a href="{% url 'order' %}" class="btn btn-primary btn-lg">Order Now</a>
+        </div>
+    </div>
+</section>
+
+<style>
+.page-header {
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary-dark));
+    color: white;
+    padding: 6rem 0 4rem;
+    margin-top: 72px;
+    text-align: center;
+}
+
+.page-header h1 {
+    color: white;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: 0.5rem;
+}
+
+.page-header p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+}
+
+.menu-category {
+    margin-bottom: 4rem;
+}
+
+.category-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.category-header h2 {
+    font-size: 2.5rem;
+    color: var(--color-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.category-header p {
+    color: var(--color-text-light);
+    font-size: 1.125rem;
+}
+
+.menu-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.menu-item-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.menu-item-card.unavailable {
+    opacity: 0.6;
+}
+
+.item-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.item-image-placeholder {
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--color-primary-dark);
+}
+
+.item-details {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.item-header h3 {
+    font-size: 1.375rem;
+    flex: 1;
+}
+
+.item-price {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    white-space: nowrap;
+}
+
+.item-description {
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex: 1;
+}
+
+.item-meta {
+    margin-top: auto;
+}
+
+.item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.item-info {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+}
+
+.item-info i {
+    color: var(--color-primary);
+}
+
+.unavailable-badge {
+    background: var(--color-error);
+    color: white;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    text-align: center;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--color-text-light);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: var(--color-border);
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .menu-items-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}
