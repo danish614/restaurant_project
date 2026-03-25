@@ -1,0 +1,868 @@
+[
+{
+  "model": "core.category",
+  "pk": 1,
+  "fields": {
+    "name": "Main Course",
+    "description": "Traditional Pakistani main dishes",
+    "order": 1,
+    "created_at": "2026-01-19T18:46:40.131Z"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 2,
+  "fields": {
+    "name": "Roti & Bread",
+    "description": "Freshly baked breads",
+    "order": 3,
+    "created_at": "2026-01-19T18:55:11.870Z"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 3,
+  "fields": {
+    "name": "Rice item",
+    "description": "Flavorful rice dishes",
+    "order": 5,
+    "created_at": "2026-01-19T18:56:00.762Z"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 4,
+  "fields": {
+    "name": "Drinks and Beverage",
+    "description": "Refreshing Drink",
+    "order": 5,
+    "created_at": "2026-01-19T18:57:35.004Z"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 5,
+  "fields": {
+    "name": "Salads and sided",
+    "description": "accompaniments",
+    "order": 6,
+    "created_at": "2026-01-19T18:58:42.239Z"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 6,
+  "fields": {
+    "name": "BBQ & GRILLS",
+    "description": "House special",
+    "order": 7,
+    "created_at": "2026-01-19T19:00:04.187Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 1,
+  "fields": {
+    "category": 1,
+    "name": "Chicken Biryani",
+    "description": "Aromatic basmati rice cooked with tender chicken pieces and traditional spices",
+    "price": "400.00",
+    "image": "menu_items/chicken-biryani.jpg",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 2,
+    "preparation_time": 30,
+    "created_at": "2026-01-19T19:03:36.874Z",
+    "updated_at": "2026-01-19T19:30:58.305Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 2,
+  "fields": {
+    "category": 1,
+    "name": "beef biryani",
+    "description": "Flavorful beef biryani with fragrant spices and basmati rice",
+    "price": "500.00",
+    "image": "menu_items/beef_biryani.jpeg",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": true,
+    "is_gluten_free": false,
+    "spice_level": 3,
+    "preparation_time": 40,
+    "created_at": "2026-01-19T19:06:13.620Z",
+    "updated_at": "2026-01-19T19:31:55.642Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 3,
+  "fields": {
+    "category": 1,
+    "name": "chicken karahi",
+    "description": "Traditional tomato-based chicken curry cooked in karahi",
+    "price": "1200.00",
+    "image": "menu_items/chicken-karahi.jpg",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": true,
+    "is_gluten_free": false,
+    "spice_level": 2,
+    "preparation_time": 30,
+    "created_at": "2026-01-19T19:19:07.352Z",
+    "updated_at": "2026-01-19T19:19:07.353Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 4,
+  "fields": {
+    "category": 1,
+    "name": "mutton karahi",
+    "description": "Tender mutton pieces in rich tomato gravy",
+    "price": "1800.00",
+    "image": "menu_items/mutton_biryani.jpeg",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 3,
+    "preparation_time": 40,
+    "created_at": "2026-01-19T19:35:03.705Z",
+    "updated_at": "2026-01-19T19:35:03.705Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 5,
+  "fields": {
+    "category": 1,
+    "name": "beef Nihari",
+    "description": "Slow-cooked beef stew with aromatic spices, served with naan",
+    "price": "450.00",
+    "image": "menu_items/beef-nihari.jpg",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 2,
+    "preparation_time": 20,
+    "created_at": "2026-01-19T19:38:10.469Z",
+    "updated_at": "2026-01-19T19:38:10.469Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 6,
+  "fields": {
+    "category": 1,
+    "name": "Chicken Qorma",
+    "description": "Creamy chicken curry with yogurt and spices",
+    "price": "800.00",
+    "image": "menu_items/chicken-korma.webp",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 1,
+    "preparation_time": 25,
+    "created_at": "2026-01-20T14:23:07.093Z",
+    "updated_at": "2026-01-20T14:23:07.093Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 7,
+  "fields": {
+    "category": 1,
+    "name": "Daal Chawal",
+    "description": "Yellow lentils served with steamed rice",
+    "price": "200.00",
+    "image": "menu_items/daalchawal.jpg",
+    "is_available": true,
+    "is_vegetarian": true,
+    "is_vegan": true,
+    "is_gluten_free": false,
+    "spice_level": 1,
+    "preparation_time": 20,
+    "created_at": "2026-01-20T14:25:12.582Z",
+    "updated_at": "2026-01-20T14:25:12.582Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 8,
+  "fields": {
+    "category": 1,
+    "name": "Haleem",
+    "description": "Slow-cooked wheat, barley, and meat stew",
+    "price": "300.00",
+    "image": "menu_items/haleem.jfif",
+    "is_available": true,
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 1,
+    "preparation_time": 15,
+    "created_at": "2026-01-20T14:27:13.483Z",
+    "updated_at": "2026-01-20T14:27:13.483Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 9,
+  "fields": {
+    "category": 6,
+    "name": "Chicken Tikka",
+    "description": "Marinated chicken pieces grilled to perfection",
+    "price": "600.00",
+    "image": "menu_items/tika.jfif",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 3,
+    "preparation_time": 20,
+    "created_at": "2026-01-20T14:31:36.736Z",
+    "updated_at": "2026-01-20T14:31:36.736Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 10,
+  "fields": {
+    "category": 6,
+    "name": "Seekh Kabab",
+    "description": "Minced meat kababs grilled on skewers",
+    "price": "500.00",
+    "image": "menu_items/kabab.jfif",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 2,
+    "preparation_time": 15,
+    "created_at": "2026-01-20T14:34:57.863Z",
+    "updated_at": "2026-01-20T14:34:57.863Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 11,
+  "fields": {
+    "category": 6,
+    "name": "Chapli Kabab",
+    "description": "Traditional Peshawari flat kababs",
+    "price": "450.00",
+    "image": "menu_items/Chapli-Kabab.jpg",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 3,
+    "preparation_time": 10,
+    "created_at": "2026-01-20T14:36:47.514Z",
+    "updated_at": "2026-01-20T14:36:47.514Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 12,
+  "fields": {
+    "category": 6,
+    "name": "Chicken Malai Boti",
+    "description": "Creamy marinated chicken pieces, grilled",
+    "price": "700.00",
+    "image": "menu_items/boti.jfif",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 2,
+    "preparation_time": 20,
+    "created_at": "2026-01-20T14:38:26.501Z",
+    "updated_at": "2026-01-20T14:38:26.501Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 13,
+  "fields": {
+    "category": 6,
+    "name": "Fried Fish",
+    "description": "Crispy fried fish pieces with special masala",
+    "price": "1000.00",
+    "image": "menu_items/fish-edit.webp",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 3,
+    "preparation_time": 30,
+    "created_at": "2026-01-20T14:42:34.367Z",
+    "updated_at": "2026-01-20T14:44:55.490Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 14,
+  "fields": {
+    "category": 2,
+    "name": "Tandoori Roti",
+    "description": "Traditional clay oven baked bread",
+    "price": "5.00",
+    "image": "menu_items/roti.jfif",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": true,
+    "is_gluten_free": false,
+    "spice_level": 0,
+    "preparation_time": 5,
+    "created_at": "2026-01-20T14:47:49.071Z",
+    "updated_at": "2026-01-20T14:47:49.071Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 15,
+  "fields": {
+    "category": 2,
+    "name": "Naan",
+    "description": "Soft leavened bread from tandoor",
+    "price": "30.00",
+    "image": "menu_items/naan.jpg",
+    "is_available": true,
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 0,
+    "preparation_time": 5,
+    "created_at": "2026-01-20T14:49:44.986Z",
+    "updated_at": "2026-01-20T14:49:44.986Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 16,
+  "fields": {
+    "category": 2,
+    "name": "Garlic Naan",
+    "description": "Naan topped with fresh garlic and butter",
+    "price": "40.00",
+    "image": "menu_items/garlic-butter.jpg",
+    "is_available": true,
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 0,
+    "preparation_time": 10,
+    "created_at": "2026-01-20T14:51:23.343Z",
+    "updated_at": "2026-01-20T14:51:23.343Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 17,
+  "fields": {
+    "category": 3,
+    "name": "Plain Chawal (Rice)",
+    "description": "Steamed basmati rice",
+    "price": "200.00",
+    "image": "menu_items/simple-basmati-rice-recipe-for-the-perfect-side.jpg",
+    "is_available": true,
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 0,
+    "preparation_time": 20,
+    "created_at": "2026-01-20T14:53:51.683Z",
+    "updated_at": "2026-01-20T14:53:51.683Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 18,
+  "fields": {
+    "category": 3,
+    "name": "Zeera Rice",
+    "description": "Basmati rice with cumin seeds",
+    "price": "200.00",
+    "image": "menu_items/jeera-rice-1.jpg",
+    "is_available": true,
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 0,
+    "preparation_time": 15,
+    "created_at": "2026-01-20T14:55:18.505Z",
+    "updated_at": "2026-01-20T14:55:18.505Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 19,
+  "fields": {
+    "category": 3,
+    "name": "Pulao",
+    "description": "Mildly spiced rice with Vegetable",
+    "price": "300.00",
+    "image": "menu_items/veg-pulao-featured.jpg",
+    "is_available": true,
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 0,
+    "preparation_time": 15,
+    "created_at": "2026-01-20T14:57:45.602Z",
+    "updated_at": "2026-01-20T14:57:45.602Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 20,
+  "fields": {
+    "category": 4,
+    "name": "Cold Drink",
+    "description": "Chilled soft drinks (Coke, Sprite, Fanta)",
+    "price": "100.00",
+    "image": "menu_items/background-beverage-bottle-bubble-caffeine-carbonated-1435905-pxhere.com_-scaled.jpg",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 0,
+    "preparation_time": 5,
+    "created_at": "2026-01-20T14:59:56.131Z",
+    "updated_at": "2026-01-20T14:59:56.131Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 21,
+  "fields": {
+    "category": 4,
+    "name": "Mineral Water",
+    "description": "500ml bottled water",
+    "price": "80.00",
+    "image": "menu_items/images.jfif",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 0,
+    "preparation_time": 0,
+    "created_at": "2026-01-20T15:03:02.699Z",
+    "updated_at": "2026-01-20T15:03:02.699Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 22,
+  "fields": {
+    "category": 4,
+    "name": "Fresh Lemon Soda",
+    "description": "Refreshing homemade lemon soda",
+    "price": "90.00",
+    "image": "menu_items/Lemon-Soda-15C.jpg",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 0,
+    "preparation_time": 10,
+    "created_at": "2026-01-20T15:04:31.924Z",
+    "updated_at": "2026-01-20T15:04:31.925Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 23,
+  "fields": {
+    "category": 4,
+    "name": "Sweet Lassi",
+    "description": "Traditional sweet yogurt drink",
+    "price": "150.00",
+    "image": "menu_items/Lassi-in-a-glass.webp",
+    "is_available": true,
+    "is_vegetarian": false,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 0,
+    "preparation_time": 10,
+    "created_at": "2026-01-20T15:10:39.159Z",
+    "updated_at": "2026-01-20T15:10:39.159Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 24,
+  "fields": {
+    "category": 5,
+    "name": "Kachumber Salad",
+    "description": "Fresh cucumber, tomato, and onion salad",
+    "price": "60.00",
+    "image": "menu_items/Mediterranean-tomato-and-cucumber-salad-11.jpg",
+    "is_available": true,
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 1,
+    "preparation_time": 15,
+    "created_at": "2026-01-20T15:14:19.343Z",
+    "updated_at": "2026-01-20T15:14:19.343Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 25,
+  "fields": {
+    "category": 5,
+    "name": "Raita",
+    "description": "Yogurt with cucumber and spices",
+    "price": "100.00",
+    "image": "menu_items/raita-recipes.jpg",
+    "is_available": true,
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 0,
+    "preparation_time": 10,
+    "created_at": "2026-01-20T15:16:10.163Z",
+    "updated_at": "2026-01-20T15:16:10.163Z"
+  }
+},
+{
+  "model": "core.menuitem",
+  "pk": 26,
+  "fields": {
+    "category": 5,
+    "name": "Green Chutney",
+    "description": "Spicy coriander and mint chutney",
+    "price": "50.00",
+    "image": "menu_items/Green-Chutney-4.jpg",
+    "is_available": true,
+    "is_vegetarian": true,
+    "is_vegan": false,
+    "is_gluten_free": false,
+    "spice_level": 0,
+    "preparation_time": 10,
+    "created_at": "2026-01-20T15:17:50.786Z",
+    "updated_at": "2026-01-20T15:17:50.786Z"
+  }
+},
+{
+  "model": "core.order",
+  "pk": 1,
+  "fields": {
+    "customer_name": "Ali Raza ",
+    "customer_email": "aliraza@gmail.com",
+    "customer_phone": "0302 6452449",
+    "customer_address": "Sialkot Road, Bismillah Colony",
+    "status": "pending",
+    "total_amount": "805.00",
+    "notes": "please deliver the order in timely ",
+    "created_at": "2026-01-20T18:49:53.878Z",
+    "updated_at": "2026-01-20T18:49:53.878Z"
+  }
+},
+{
+  "model": "core.order",
+  "pk": 2,
+  "fields": {
+    "customer_name": "awais",
+    "customer_email": "awais123@gmail.com",
+    "customer_phone": "0323 6788902",
+    "customer_address": "silalkot sweet baker ka samna gali number 2 ",
+    "status": "pending",
+    "total_amount": "605.00",
+    "notes": "",
+    "created_at": "2026-01-20T18:53:28.553Z",
+    "updated_at": "2026-01-20T18:53:28.553Z"
+  }
+},
+{
+  "model": "core.order",
+  "pk": 3,
+  "fields": {
+    "customer_name": "Asadilyas",
+    "customer_email": "asadilyas@gmail.com",
+    "customer_phone": "12334560987",
+    "customer_address": "Sialkot Road, Bismillah Colony",
+    "status": "pending",
+    "total_amount": "1605.00",
+    "notes": "",
+    "created_at": "2026-03-18T09:06:19.100Z",
+    "updated_at": "2026-03-18T09:06:19.100Z"
+  }
+},
+{
+  "model": "core.order",
+  "pk": 4,
+  "fields": {
+    "customer_name": "Asadilyas",
+    "customer_email": "asadilyas@gmail.com",
+    "customer_phone": "12334560987",
+    "customer_address": "Sialkot Road, Bismillah Colony",
+    "status": "pending",
+    "total_amount": "1605.00",
+    "notes": "",
+    "created_at": "2026-03-18T09:12:00.316Z",
+    "updated_at": "2026-03-18T09:12:00.316Z"
+  }
+},
+{
+  "model": "core.order",
+  "pk": 5,
+  "fields": {
+    "customer_name": "Asadilyas",
+    "customer_email": "asadilyas@gmail.com",
+    "customer_phone": "12334560987",
+    "customer_address": "Sialkot Road, Bismillah Colony gujranwala",
+    "status": "pending",
+    "total_amount": "1605.00",
+    "notes": "",
+    "created_at": "2026-03-18T09:18:49.564Z",
+    "updated_at": "2026-03-18T09:18:49.565Z"
+  }
+},
+{
+  "model": "core.orderitem",
+  "pk": 1,
+  "fields": {
+    "order": 1,
+    "menu_item": 1,
+    "quantity": 2,
+    "price": "400.00",
+    "notes": ""
+  }
+},
+{
+  "model": "core.orderitem",
+  "pk": 2,
+  "fields": {
+    "order": 2,
+    "menu_item": 8,
+    "quantity": 2,
+    "price": "300.00",
+    "notes": ""
+  }
+},
+{
+  "model": "core.orderitem",
+  "pk": 3,
+  "fields": {
+    "order": 3,
+    "menu_item": 2,
+    "quantity": 1,
+    "price": "500.00",
+    "notes": ""
+  }
+},
+{
+  "model": "core.orderitem",
+  "pk": 4,
+  "fields": {
+    "order": 3,
+    "menu_item": 6,
+    "quantity": 1,
+    "price": "800.00",
+    "notes": ""
+  }
+},
+{
+  "model": "core.orderitem",
+  "pk": 5,
+  "fields": {
+    "order": 3,
+    "menu_item": 8,
+    "quantity": 1,
+    "price": "300.00",
+    "notes": ""
+  }
+},
+{
+  "model": "core.orderitem",
+  "pk": 6,
+  "fields": {
+    "order": 4,
+    "menu_item": 1,
+    "quantity": 1,
+    "price": "400.00",
+    "notes": ""
+  }
+},
+{
+  "model": "core.orderitem",
+  "pk": 7,
+  "fields": {
+    "order": 4,
+    "menu_item": 6,
+    "quantity": 1,
+    "price": "800.00",
+    "notes": ""
+  }
+},
+{
+  "model": "core.orderitem",
+  "pk": 8,
+  "fields": {
+    "order": 4,
+    "menu_item": 7,
+    "quantity": 2,
+    "price": "200.00",
+    "notes": ""
+  }
+},
+{
+  "model": "core.orderitem",
+  "pk": 9,
+  "fields": {
+    "order": 5,
+    "menu_item": 1,
+    "quantity": 1,
+    "price": "400.00",
+    "notes": ""
+  }
+},
+{
+  "model": "core.orderitem",
+  "pk": 10,
+  "fields": {
+    "order": 5,
+    "menu_item": 6,
+    "quantity": 1,
+    "price": "800.00",
+    "notes": ""
+  }
+},
+{
+  "model": "core.orderitem",
+  "pk": 11,
+  "fields": {
+    "order": 5,
+    "menu_item": 7,
+    "quantity": 2,
+    "price": "200.00",
+    "notes": ""
+  }
+},
+{
+  "model": "core.tablebooking",
+  "pk": 1,
+  "fields": {
+    "customer_name": "Danish ilyas",
+    "customer_email": "danish.ilyas9167890@gmail.com",
+    "customer_phone": "0332 8101889",
+    "number_of_guests": 5,
+    "booking_date": "2026-02-10",
+    "booking_time": "20:00:00",
+    "status": "pending",
+    "special_requests": "",
+    "created_at": "2026-01-20T15:25:07.638Z",
+    "updated_at": "2026-01-20T15:25:07.638Z"
+  }
+},
+{
+  "model": "core.tablebooking",
+  "pk": 2,
+  "fields": {
+    "customer_name": "Ali Raza",
+    "customer_email": "danish.ilyas9167890@gmail.com",
+    "customer_phone": "0332 8101889",
+    "number_of_guests": 5,
+    "booking_date": "2026-02-10",
+    "booking_time": "14:00:00",
+    "status": "pending",
+    "special_requests": "",
+    "created_at": "2026-01-31T04:07:36.889Z",
+    "updated_at": "2026-01-31T04:07:36.889Z"
+  }
+},
+{
+  "model": "core.tablebooking",
+  "pk": 3,
+  "fields": {
+    "customer_name": "Asad",
+    "customer_email": "asadilyas@gmail.com",
+    "customer_phone": "1234567",
+    "number_of_guests": 5,
+    "booking_date": "2026-04-11",
+    "booking_time": "11:00:00",
+    "status": "pending",
+    "special_requests": "",
+    "created_at": "2026-03-18T09:08:21.090Z",
+    "updated_at": "2026-03-18T09:08:21.091Z"
+  }
+},
+{
+  "model": "core.tablebooking",
+  "pk": 4,
+  "fields": {
+    "customer_name": "Asadilyas",
+    "customer_email": "asadilyas@gmail.com",
+    "customer_phone": "1234567",
+    "number_of_guests": 5,
+    "booking_date": "2026-03-23",
+    "booking_time": "11:00:00",
+    "status": "pending",
+    "special_requests": "",
+    "created_at": "2026-03-18T09:09:53.295Z",
+    "updated_at": "2026-03-18T09:09:53.295Z"
+  }
+},
+{
+  "model": "core.tablebooking",
+  "pk": 5,
+  "fields": {
+    "customer_name": "Asadilyas",
+    "customer_email": "asadilyas@gmail.com",
+    "customer_phone": "1234567",
+    "number_of_guests": 5,
+    "booking_date": "2026-03-23",
+    "booking_time": "00:00:00",
+    "status": "pending",
+    "special_requests": "",
+    "created_at": "2026-03-18T09:12:29.655Z",
+    "updated_at": "2026-03-18T09:12:29.655Z"
+  }
+},
+{
+  "model": "core.tablebooking",
+  "pk": 6,
+  "fields": {
+    "customer_name": "Asadilyas",
+    "customer_email": "asadilyas@gmail.com",
+    "customer_phone": "1234567",
+    "number_of_guests": 5,
+    "booking_date": "2026-03-24",
+    "booking_time": "00:00:00",
+    "status": "pending",
+    "special_requests": "",
+    "created_at": "2026-03-18T09:19:32.078Z",
+    "updated_at": "2026-03-18T09:19:32.078Z"
+  }
+},
+{
+  "model": "core.restaurantinfo",
+  "pk": 1,
+  "fields": {
+    "name": "Desi Bytes",
+    "tagline": "the taste of home",
+    "description": "Experience the authentic flavors of Gujranwala with our traditional recipes passed down through generations.",
+    "phone": "0313 7614124",
+    "email": "danish.ilyas9167890@gmail.com",
+    "address": "Sialkot Road, Mumtaz market Gujranwala",
+    "whatsapp_number": "0313 7614124",
+    "google_maps_link": "https://www.bing.com/search?q=mumtaz+marketplace+Gujranwala&FORM=QSRE7",
+    "facebook_url": "https://facebook.com/yourpage",
+    "instagram_url": "https://instagram.com/yourpage",
+    "twitter_url": "https://Twitter.com/yourpage",
+    "opening_hours": "Monday - Friday: 11:00 AM - 11:00 PM\r\nSaturday - Sunday: 12:00 PM - 12:00 AM",
+    "created_at": "2026-01-15T18:39:11.908Z",
+    "updated_at": "2026-02-11T17:14:02.831Z"
+  }
+}
+]
